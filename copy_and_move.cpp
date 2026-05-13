@@ -1,5 +1,6 @@
 #include <iostream>
 #include <array>
+#include <memory>
 using namespace std;
 template<class T>
 class Matrix{
@@ -13,7 +14,7 @@ public:
 	Matrix& operator=(const Matrix&); // copy assignment
 	
 	Matrix(Matrix&&);  //move constructor
-	Matrix& operator=(const Matrix&&); //move assignment
+	Matrix& operator=(Matrix&&); //move assignment
 
 	~Matrix(){ delete[] elem;}
 };
@@ -25,8 +26,7 @@ Matrix<T>:: Matrix(const Matrix& m) : dim{m.dim}, elem{new T[m.size()]}{
 
 int main(){
 	Matrix<int>* m = new Matrix<int>{4,6};
-	Matrix<int>* n = m;
+	Matrix<int>n{*m};
 	delete m;
-	delete n;
 	return 0;
 }
