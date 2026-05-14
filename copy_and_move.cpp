@@ -22,11 +22,17 @@ template<class T>
 Matrix<T>:: Matrix(const Matrix& m) : dim{m.dim}, elem{new T[m.size()]}{
 	uninitialized_copy(m.elem, m.elem+m.size(), elem);
 }
-
+template<class T>
+Matrix<T>& Matrix<T>::operator=(const Matrix& m){
+	if(dim[0]!=m.dim[0] && dim[1]!=m.dim[1])
+		throw runtime_error("bad size in Matrix");
+	copy(m.elem, m.elem+m.size(), elem);
+}
 
 int main(){
 	Matrix<int>* m = new Matrix<int>{4,6};
 	Matrix<int>n{*m};
+	Matrix<int> o = *m;
 	delete m;
 	return 0;
 }
